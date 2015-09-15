@@ -77,6 +77,8 @@ for x in get_chapter_links(links):
         file.close()
         print('{} saved.'.format(chapter_title.replace(',','')))
 
+print('All chapters are up to date.')
+
 
 
 
