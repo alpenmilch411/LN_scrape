@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 #test test
-print('nigger')
+
 
 #Gets chapter links
 def get_chapter_links(index_url):
