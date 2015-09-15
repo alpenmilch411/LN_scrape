@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import os
-
+import getpass
 
 #Gets chapter links
 def get_chapter_links(index_url):
@@ -60,18 +60,19 @@ links = 'http://www.wuxiaworld.com/cdindex-html/'
 #Checks whether a directory already exists and creates a new one if necessary
 #TODO Find way to create directory unrelated from position of script
 story_title = get_story_title(links)
-if not os.path.isdir('{}'.format(story_title)):
-    os.mkdir('{}'.format(story_title))
+path = '/users/{}/documents/'.format(getpass.getuser())+'{}'.format(story_title)
+if not os.path.isdir(path):
+    os.mkdir(path)
 
 #Copys chapters into text file
 for x in get_chapter_links(links):
     #Checks whether chapter already exists
     #TODO Make checking process quicker
     chapter_title = get_title(str(x)).replace(',','') + '.txt'
-    if not os.path.isfile('{}'.format(story_title) + '/' + chapter_title):
+    if not os.path.isfile(path + '/' + chapter_title):
         story_title = get_story_title(links)
         chapter_text = get_chapters(str(x))
-        file = open('{}/'.format(story_title) + chapter_title, 'w')
+        file = open(path + '/' + chapter_title, 'w')
         file.write(chapter_text)
         file.close()
         print('{} saved.'.format(chapter_title.replace(',','')))
