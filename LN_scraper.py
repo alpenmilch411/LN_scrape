@@ -3,7 +3,8 @@ from bs4 import BeautifulSoup
 import os
 import getpass
 
-#Gets chapter links
+
+# Gets chapter links
 def get_chapter_links(index_url):
     r = requests.get(index_url)
     soup = BeautifulSoup(r.content, 'html.parser')
@@ -14,66 +15,64 @@ def get_chapter_links(index_url):
             url_list.append((url.get('href')))
     return url_list
 
-#Gets chapter content
+
+# Gets chapter content
 def get_chapters(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
-    chapter_text = soup.find_all('div',{'class':"entry-content"})
-    #Puts chapter text into 'chapter'-variable
+    chapter_text = soup.find_all('div', {'class': "entry-content"})
+    # Puts chapter text into 'chapter'-variable
     chapter = ''
     for c in chapter_text:
-      #Removing 'Previous Next Chapter'
-      content = c.text.strip()                              # strip??
-      chapter += content.strip('Previous Next Chapter')     # strip??
+        # Removing 'Previous Next Chapter'
+        content = c.text.strip()  # strip??
+        chapter += content.strip('Previous Next Chapter')  # strip??
     return chapter
 
-#Gets title of chapter
+
+# Gets title of chapter
 def get_title(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
-    title = soup.find_all('h1',{'class':'entry-title'})
+    title = soup.find_all('h1', {'class': 'entry-title'})
     chapter_title = ''
     for l in title:
-       chapter_title += l.text
+        chapter_title += l.text
     return chapter_title
 
-#Gets title of story
+
+# Gets title of story
 def get_story_title(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
-    story = soup.find_all('h1',{'class':"entry-title"})
+    story = soup.find_all('h1', {'class': "entry-title"})
     story_title = ''
     for content in story:
-       story_title += content.text
+        story_title += content.text
     return story_title
 
 
-
-#url on which links can be found
+# url on which links can be found
 links = 'http://www.wuxiaworld.com/cdindex-html/'
 
 
-#Checks whether a directory already exists and creates a new one if necessary
+# Checks whether a directory already exists and creates a new one if necessary
 story_title = get_story_title(links)
-path = '/users/{}/documents/'.format(getpass.getuser())+'{}'.format(story_title)
+path = '/users/{}/documents/'.format(getpass.getuser()) + '{}'.format(story_title)
 if not os.path.isdir(path):
     os.mkdir(path)
 link_list = get_chapter_links(links)
-#Copys chapters into text file
+
+# Copiess chapters into text file
 for x in link_list:
-    #Checks whether chapter already exists
-    #TODO Make checking process quicker
-    chapter_title = get_title(str(x)).replace(',','') + '.txt'
+    # Checks whether chapter already exists
+    # TODO Make checking process quicker
+    chapter_title = get_title(str(x)).replace(',', '') + '.txt'
     if not os.path.isfile(path + '/' + chapter_title):
-        story_title = get_story_title(links)
         chapter_text = get_chapters(str(x))
         file = open(path + '/' + chapter_title, 'w')
         file.write(chapter_text)
         file.close()
-        print('{} saved.'.format(chapter_title.replace(',','')))
+        print('{} saved.'.format(chapter_title.replace(',', '')))
 
 print('All chapters are up to date.')
-
-
-
-
