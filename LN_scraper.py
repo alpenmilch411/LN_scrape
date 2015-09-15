@@ -65,7 +65,6 @@ for x in link_list:
     #TODO Make checking process quicker
     chapter_title = get_title(str(x)).replace(',','') + '.txt'
     if not os.path.isfile(path + '/' + chapter_title):
-        story_title = get_story_title(links)
         chapter_text = get_chapters(str(x))
         file = open(path + '/' + chapter_title, 'w')
         file.write(chapter_text)
