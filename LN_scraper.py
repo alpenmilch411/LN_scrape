@@ -16,11 +16,9 @@ def get_chapter_links(index_url):
 
 #Gets chapter content
 def get_chapters(url):
-
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
     chapter_text = soup.find_all('div',{'class':"entry-content"})
-
     #Puts chapter text into 'chapter'-variable
     chapter = ''
     for c in chapter_text:
@@ -35,7 +33,6 @@ def get_title(url):
     soup = BeautifulSoup(r.content, 'html.parser')
     title = soup.find_all('h1',{'class':'entry-title'})
     chapter_title = ''
-
     for l in title:
        chapter_title += l.text
     return chapter_title
@@ -45,7 +42,6 @@ def get_story_title(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
     story = soup.find_all('h1',{'class':"entry-title"})
-
     story_title = ''
     for content in story:
        story_title += content.text
