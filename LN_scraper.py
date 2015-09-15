@@ -6,7 +6,7 @@ import getpass
 #Gets chapter links
 def get_chapter_links(index_url):
     r = requests.get(index_url)
-    soup = BeautifulSoup(r.content, 'html.parser')
+    soup = BeautifulSoup(r.content, 'lxml')
     links = soup.find_all('a')
     url_list = []
     for url in links:
@@ -17,7 +17,7 @@ def get_chapter_links(index_url):
 #Gets chapter content
 def get_chapters(url):
     r = requests.get(url)
-    soup = BeautifulSoup(r.content, 'html.parser')
+    soup = BeautifulSoup(r.content, 'lxml')
     chapter_text = soup.find_all('div',{'class':"entry-content"})
     #Puts chapter text into 'chapter'-variable
     chapter = ''
@@ -30,7 +30,7 @@ def get_chapters(url):
 #Gets title of chapter
 def get_title(url):
     r = requests.get(url)
-    soup = BeautifulSoup(r.content, 'html.parser')
+    soup = BeautifulSoup(r.content, 'lxml')
     title = soup.find_all('h1',{'class':'entry-title'})
     chapter_title = ''
     for l in title:
@@ -40,7 +40,7 @@ def get_title(url):
 #Gets title of story
 def get_story_title(url):
     r = requests.get(url)
-    soup = BeautifulSoup(r.content, 'html.parser')
+    soup = BeautifulSoup(r.content, 'lxml')
     story = soup.find_all('h1',{'class':"entry-title"})
     story_title = ''
     for content in story:
