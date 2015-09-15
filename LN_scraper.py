@@ -58,7 +58,7 @@ links = 'http://www.wuxiaworld.com/cdindex-html/'
 
 
 #Checks whether a directory already exists and creates a new one if necessary
-#TODO Find way to create directory unrelated from position of script
+
 story_title = get_story_title(links)
 path = '/users/{}/documents/'.format(getpass.getuser())+'{}'.format(story_title)
 if not os.path.isdir(path):
