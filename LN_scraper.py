@@ -63,9 +63,9 @@ story_title = get_story_title(links)
 path = '/users/{}/documents/'.format(getpass.getuser())+'{}'.format(story_title)
 if not os.path.isdir(path):
     os.mkdir(path)
-
+link_list = get_chapter_links(links)
 #Copys chapters into text file
-for x in get_chapter_links(links):
+for x in link_list:
     #Checks whether chapter already exists
     #TODO Make checking process quicker
     chapter_title = get_title(str(x)).replace(',','') + '.txt'
