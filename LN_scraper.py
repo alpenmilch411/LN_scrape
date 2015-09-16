@@ -59,23 +59,26 @@ path = '/users/{}/documents/'.format(getpass.getuser())+'{}'.format(story_title)
 if not os.path.isdir(path):
     os.mkdir(path)
 link_list = get_chapter_links(links)
+
+
 #Copiess chapters into text file
-file2_out = open(path + '/url_list.txt', 'a')
-
-
-
+file2_out = open(path + '/url_list.txt', 'a') #local url list for chapter check
 for x in link_list:
-    #Checks whether chapter already exists
-    if x not in open(path + '/url_list.txt').read():
+    #Checking chapter existance in folder and downloading chapter
+    if x not in open(path + '/url_list.txt').read(): #Is url of chapter in local url list?
         chapter_title = get_title(str(x)).replace(',','') + '.txt'
         chapter_text = get_chapters(str(x))
         file = open(path + '/' + chapter_title, 'w')
         file.write(chapter_text)
         file.close()
-        file2_out.write('{}\n'.format(x))
+        
+        file2_out.write('{}\n'.format(x)) #adding downloaded chapter to local url list
         print('{} saved.'.format(chapter_title.replace(',','')))
+
 open(path + '/url_list.txt').close()
 file2_out.close()
+
+
 print('All chapters are up to date.')
 
 
