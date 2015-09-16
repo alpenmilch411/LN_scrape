@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import getpass
+import re
 
 #Gets chapter links
 def get_chapter_links(index_url):
@@ -60,18 +61,25 @@ if not os.path.isdir(path):
     os.mkdir(path)
 link_list = get_chapter_links(links)
 #Copiess chapters into text file
+file2_out = open(path + '/url_list.txt', 'a')
+
+
+
 for x in link_list:
     #Checks whether chapter already exists
     #TODO Make checking process quicker
-    chapter_title = get_title(str(x)).replace(',','') + '.txt'
-    if not os.path.isfile(path + '/' + chapter_title):
+    if x not in open(path + '/url_list.txt').read():
+        chapter_title = get_title(str(x)).replace(',','') + '.txt'
         chapter_text = get_chapters(str(x))
         file = open(path + '/' + chapter_title, 'w')
         file.write(chapter_text)
         file.close()
+        file2_out.write('{}\n'.format(x))
         print('{} saved.'.format(chapter_title.replace(',','')))
-
+open(path + '/url_list.txt').close()
+file2_out.close()
 print('All chapters are up to date.')
+
 
 
 
