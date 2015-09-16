@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import getpass
-import re
 
 #Gets chapter links
 def get_chapter_links(index_url):
@@ -67,7 +66,6 @@ file2_out = open(path + '/url_list.txt', 'a')
 
 for x in link_list:
     #Checks whether chapter already exists
-    #TODO Make checking process quicker
     if x not in open(path + '/url_list.txt').read():
         chapter_title = get_title(str(x)).replace(',','') + '.txt'
         chapter_text = get_chapters(str(x))
