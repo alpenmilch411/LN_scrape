@@ -75,7 +75,7 @@ for x in link_list:
         file2_out.write('{}\n'.format(x)) #adding downloaded chapter to local url list
         print('{} saved.'.format(chapter_title.replace(',','')))
 
-open(path + '/url_list.txt').close()
+
 file2_out.close()
 
 
@@ -84,4 +84,4 @@ print('All chapters are up to date.')
 
 
 
-
+#TODO If  files gets deleted, script won't know because only way of checking is throught the local list
