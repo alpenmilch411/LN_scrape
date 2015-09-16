@@ -84,4 +84,4 @@ print('All chapters are up to date.')
 
 
 
-#TODO If  files gets deleted, script won't know because only way of checking is throught the local list
+#TODO If  files gets deleted, script won't know. Checking only possible through local url list.
